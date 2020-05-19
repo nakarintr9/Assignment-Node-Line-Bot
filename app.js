@@ -1,5 +1,5 @@
 
-let channelAccessToken = 'fybw/Xp3kEkMfUSlcRCKPoHeK2/YMYimUdQlE1kMOjx01uOXdr8CRtwycAIklC5PEryi+OLrdBhsJFcB3004QOIA+R3JWXa4uoDPFFNTqi1X2Pn8ydTrKtPlfqdGxgyIcUSJ4KHtBz3UeDzvHKeoWwdB04t89/1O/w1cDnyilFU=';
+let channelAccessToken = 'XQ+Flk5yQfoS1X/FBErKW56urAMk5yFVRh1/7Y+L5fhHfAoPMWrxr1e4DI9R+Ln1Qis3vsKLAY9e8y7fL9Gn+PPkmCYPUY8PuGa/SOxdfflt0FSV61oQ4r40z+4JQQ6oVaNrOrOSEwtTTFbgo1Q7GgdB04t89/1O/w1cDnyilFU=';
 let channelSecret= '1d0c66301e63dda05ab05361844d7b62';
 // Echo reply
 
