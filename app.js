@@ -1,40 +1,31 @@
 
 let channelAccessToken = 'XQ+Flk5yQfoS1X/FBErKW56urAMk5yFVRh1/7Y+L5fhHfAoPMWrxr1e4DI9R+Ln1Qis3vsKLAY9e8y7fL9Gn+PPkmCYPUY8PuGa/SOxdfflt0FSV61oQ4r40z+4JQQ6oVaNrOrOSEwtTTFbgo1Q7GgdB04t89/1O/w1cDnyilFU=';
-let channelSecret= '1d0c66301e63dda05ab05361844d7b62';
-// Echo reply
+let channelSecret= 'b3853aa0f59c1e65df1079e297477adb';
+const express = require('express');
+const line = require('@line/bot-sdk');
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const request = require('request')
-const app = express()
-const port = process.env.PORT || 4000
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-app.post('/webhook', (req, res) => {
-    console.log(req.body);
-    let reply_token = req.body.events[0].replyToken
-    let msg = req.body.events[0].message.text
-    reply(reply_token, msg)
-    res.sendStatus(200)
-})
-app.listen(port)
-function reply(reply_token, msg) {
-    let headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+channelAccessToken
-    }
-    let body = JSON.stringify({
-        replyToken: reply_token,
-        messages: [{
-            type: 'text',
-            text: msg
-        }]
-    })
-    request.post({
-        url: 'https://api.line.me/v2/bot/message/reply',
-        headers: headers,
-        body: body
-    }, (err, res, body) => {
-        console.log('status = ' + res.statusCode);
-    });
+const config = {
+  channelAccessToken: channelAccessToken,
+  channelSecret: channelSecret
+};
+
+const app = express();
+app.post('/webhook', line.middleware(config), (req, res) => {
+  Promise
+    .all(req.body.events.map(handleEvent))
+    .then((result) => res.json(result));
+});
+
+const client = new line.Client(config);
+function handleEvent(event) {
+  if (event.type !== 'message' || event.message.type !== 'text') {
+    return Promise.resolve(null);
+  }
+
+  return client.replyMessage(event.replyToken, {
+    type: 'text',
+    text: event.message.text
+  });
 }
+
+app.listen(3000);
