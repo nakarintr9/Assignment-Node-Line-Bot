@@ -50,7 +50,7 @@ function reply(reply_token, msg) {
         console.log("reply status = " + res.statusCode);
         if (err || res.statusCode !== 200) notify(msg);
         //simulate error
-        notify("simulate fail when line bot try to send message: "+msg);
+        notify("simulate case fail when line bot try to send message: "+msg);
       }
     );
   } catch (error) {
