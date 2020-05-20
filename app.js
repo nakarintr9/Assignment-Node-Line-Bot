@@ -39,6 +39,9 @@ function reply(reply_token, msg) {
       ],
     });
 
+    // simulate timeout
+    await setTimeout(notify(msg),5000);
+
     request.post(
       {
         url: "https://api.line.me/v2/bot/message/reply",
@@ -48,9 +51,6 @@ function reply(reply_token, msg) {
       (err, res, body) => {
         console.log("status = " + res.statusCode);
         if(err || res.statusCode !== 200) notify(msg);
-
-        // simulate timeout
-        setTimeout(notify(msg), 5000);
       }
     );
   } catch (error) {
