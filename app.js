@@ -46,38 +46,38 @@ function reply(reply_token, msg) {
         body: body,
       },
       (err, res, body) => {
-        console.log("status = " + res.statusCode);
-        if(err || res.statusCode !== 200) notify(msg);
+        if(err) throw new Error(err);
+        console.log("reply status = " + res.statusCode);
+        if (err || res.statusCode !== 200) notify(msg);
         //simulate error
         notify(msg);
       }
     );
   } catch (error) {
-    console.log("catch = " + error);
+    console.log("reply catch = " + error);
   }
 }
 
 function notify(message) {
   try {
-    request(
+    let headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: "Bearer " + lineNotifyToken,
+    };
+    request.post(
       {
-        method: "POST",
         uri: "https://notify-api.line.me/api/notify",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        auth: {
-          bearer: lineNotifyToken,
-        },
+        headers: headers,
         form: {
           message: message,
         },
       },
       (err, res, body) => {
-        console.log("status = " + res.statusCode);
+        if(err) throw new Error(err);
+        console.log("norify status = " + res.statusCode);
       }
     );
   } catch (error) {
-    console.log("catch = " + error);
+    console.log("notify catch = " + error);
   }
 }
