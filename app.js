@@ -40,7 +40,7 @@ function reply(reply_token, msg) {
     });
 
     // simulate timeout
-    await setTimeout(notify(msg),5000);
+    setTimeout(notify(msg),5000);
 
     request.post(
       {
