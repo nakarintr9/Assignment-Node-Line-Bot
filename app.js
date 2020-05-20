@@ -47,10 +47,10 @@ function reply(reply_token, msg) {
       },
       (err, res, body) => {
         console.log("status = " + res.statusCode);
-        if(err || res.statusCode !== 200) notify(message);
+        if(err || res.statusCode !== 200) notify(msg);
 
         // simulate timeout
-        setTimeout(notify(message), 5000);
+        setTimeout(notify(msg), 5000);
       }
     );
   } catch (error) {
